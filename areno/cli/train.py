@@ -1220,7 +1220,9 @@ def _dataset_builder_for_suffix(suffix: str) -> str:
     "--dataset-cache-path",
     default=None,
     help="Opt-in directory to cache tokenized prompt samples. Unset re-tokenizes every epoch as before; "
-    "set it to cache the transformed samples keyed on dataset content, tokenizer, chat template, and options.",
+    "set it to cache the transformed samples keyed on dataset content, tokenizer, chat template, and options. "
+    "Cache events (stage=dataset_cache_hit/miss/rejected/skip) are logged at INFO to stderr; "
+    "filter with `grep stage=dataset_cache_`. Level via ARENO_LOG_LEVEL.",
 )
 @click.option(
     "--dataset-cache-mode",

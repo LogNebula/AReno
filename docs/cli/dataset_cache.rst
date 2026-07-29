@@ -48,6 +48,14 @@ Each epoch Arreno logs a single ``stage=dataset_cache_hit`` or
 
    ... stage=dataset_cache_hit key=a582e4e30a9b items=250 size_bytes=40211 skipped_long=3 load_time_s=0.012 tokenization_time_s=0.000 mode=auto
 
+These events are emitted at the ``INFO`` level through the ``areno`` logger,
+which writes to **stderr** (not stdout) -- so they will not appear in stdout
+captures. Filter them with ``areno train ... 2>&1 | grep stage=dataset_cache_``
+(or read ``stderr`` directly when driving ``areno`` as a subprocess). Adjust the
+level with the ``ARENO_LOG_LEVEL`` environment variable (default ``INFO``).
+The first run with a given fingerprint always logs ``miss`` and writes the
+artifact; a subsequent run with the same fingerprint logs ``hit``.
+
 When metrics recording is enabled, the same fields are written to the run's
 dashboard-state JSON under ``stage=dataset_cache_load`` with the structured
 fields ``hit``, ``items``, ``size_bytes``, ``skipped_long``, ``load_time_s``,
