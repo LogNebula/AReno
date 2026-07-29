@@ -38,13 +38,14 @@ _TP_SIZE = int(os.environ.get("ARENO_TP_SIZE", "1"))
 _WORLD_SIZE = int(os.environ.get("ARENO_WORLD_SIZE", "1"))
 
 # A few one-step arithmetic rows. The default dataset loader passes JSONL
-# through untouched, so each row needs a `prompt` (for rollout) and an
-# `answer` (read by examples/math/math_verify_reward.py:reward_fn).
+# through untouched, so each row needs a `prompt` (for rollout) and a
+# `solutions` list: the rollout scorer maps item.solutions -> reward record's
+# `answer`, which examples/math/math_verify_reward.py:reward_fn reads.
 _MINIMAL_ROWS = [
-    {"prompt": "What is 7 + 5? Put the answer in \\boxed{}.", "answer": "12"},
-    {"prompt": "What is 9 - 4? Put the answer in \\boxed{}.", "answer": "5"},
-    {"prompt": "What is 3 * 8? Put the answer in \\boxed{}.", "answer": "24"},
-    {"prompt": "What is 20 / 5? Put the answer in \\boxed{}.", "answer": "4"},
+    {"prompt": "What is 7 + 5? Put the answer in \\boxed{}.", "solutions": ["12"]},
+    {"prompt": "What is 9 - 4? Put the answer in \\boxed{}.", "solutions": ["5"]},
+    {"prompt": "What is 3 * 8? Put the answer in \\boxed{}.", "solutions": ["24"]},
+    {"prompt": "What is 20 / 5? Put the answer in \\boxed{}.", "solutions": ["4"]},
 ]
 
 

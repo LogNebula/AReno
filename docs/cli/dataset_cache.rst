@@ -133,3 +133,12 @@ afterward:
 .. code-block:: bash
 
    areno dataset-cache inspect --cache-path /tmp/areno-cache-demo/cache --json
+
+The same flow is packaged as a runnable script that generates the dataset,
+captures the events from **stderr** (not stdout), and exposes the heavy knobs
+(``ARENO_CKPT``, ``ARENO_WORLD_SIZE``, ...) as environment variables::
+
+   python examples/cache/cache_demo.py                       # single-GPU smoke
+   ARENO_WORLD_SIZE=2 python examples/cache/cache_demo.py    # reproduce the dp=2 case
+
+See ``examples/cache/README.md`` for details.
