@@ -25,7 +25,7 @@ def _tokenizer_dir(tmp_path: Path) -> Path:
     """创建一个微型分词器目录，使资产文件哈希有内容可读。"""
 
     tok_dir = tmp_path / "tok"
-    tok_dir.mkdir()
+    tok_dir.mkdir(parents=True, exist_ok=True)
     (tok_dir / "tokenizer_config.json").write_text('{"model_type":"test"}', encoding="utf-8")
     return tok_dir
 
@@ -126,10 +126,10 @@ def test_save_then_load_roundtrips_items(tmp_path):
 def test_save_is_byte_identical_for_identical_inputs(tmp_path):
     """Same inputs must produce a byte-identical artifact for reproducibility."""
 
-    cache_a = DatasetCache(tmp_path / "a", mode="auto")
-    cache_b = DatasetCache(tmp_path / "b", mode="auto")
-    key_a = _make_key(tmp_path / "a")
-    key_b = _make_key(tmp_path / "b")
+    cache_a = DatasetCache(tmp_path / "cache_a", mode="auto")
+    cache_b = DatasetCache(tmp_path / "cache_b", mode="auto")
+    key_a = _make_key(tmp_path / "cache_a")
+    key_b = _make_key(tmp_path / "cache_b")
     items = [{"prompt": "hi", "solutions": ["a"], "input_tokens": [1, 2], "record": {"prompt": "hi"}}]
     cache_a.save(key_a, items, _save_metadata())
     cache_b.save(key_b, items, _save_metadata())
